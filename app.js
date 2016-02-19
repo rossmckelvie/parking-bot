@@ -18,7 +18,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
     console.log(message.user + ": " + message.text);
     licensePlate = null;
 
-    var commands = message.text.split(" ");
+    var commands = message.text.toLowerCase().split(" ");
     if (commands[0] != "parking") return;
 
     switch(commands[1]) {
