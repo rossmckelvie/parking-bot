@@ -24,8 +24,15 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
     switch(commands[1]) {
         case "add":
             licensePlate = commands[2].toLowerCase();
-            redisClient.set(licensePlate, message.user);
-            rtm.sendMessage(licensePlate.toUpperCase() + " linked to <@" + message.user + ">!", message.channel);
+
+            redisClient.get(licensePlate, function(err, reply) {
+                if (reply != null) {
+                    rtm.sendMessage("I'm sorry <@"+message.user+">, I'm afraid I can't do that. <@"+reply+"> already claimed that license plate.", message.channel);
+                } else {
+                    redisClient.set(licensePlate, message.user);
+                    rtm.sendMessage(licensePlate.toUpperCase() + " linked to <@" + message.user + ">!", message.channel);
+                }
+            });
             break;
 
         case "help":
