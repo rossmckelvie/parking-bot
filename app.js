@@ -29,7 +29,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
             break;
 
         case "help":
-            rtm.sendMessage("Hey <@"+message.user+">, I help with parking! Type `parking abc1234` in this channel to get that person to move their car!", message.channel);
+            rtm.sendMessage("Hey <@"+message.user+">, I help with parking! Type `parking abc1234` in this channel to get that person to move their car! If I don't know that car, I'll alert the channel for you.", message.channel);
             rtm.sendMessage("Add your own car with `parking add abc1234` so other people can notify you by your plates! Type `parking help` to see this message again.", message.channel);
             break;
 
@@ -43,7 +43,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
             licensePlate = licensePlate.toLowerCase();
             redisClient.get(licensePlate, function(err, reply) {
                 if (!reply) {
-                    rtm.sendMessage("I don't know who owns "+licensePlate+", <!channel>?", message.channel);
+                    rtm.sendMessage("I don't know who owns "+licensePlate+", <!channel>? You can own this vehicle by posting `parking "+licensePlate+"` :)", message.channel);
                     return;
                 }
                 rtm.sendMessage("Hey <@"+reply+">, <@"+message.user+"> needs you to move your car!", message.channel);
