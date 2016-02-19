@@ -43,7 +43,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
             licensePlate = licensePlate.toLowerCase();
             redisClient.get(licensePlate, function(err, reply) {
                 if (!reply) {
-                    rtm.sendMessage("I don't know who owns "+licensePlate+", <!channel>? You can own this vehicle by posting `parking "+licensePlate+"` :)", message.channel);
+                    rtm.sendMessage("I don't know who owns "+licensePlate+", <!channel>? You can own this vehicle by posting `parking add "+licensePlate+"` :)", message.channel);
                     return;
                 }
                 rtm.sendMessage("Hey <@"+reply+">, <@"+message.user+"> needs you to move your car!", message.channel);
