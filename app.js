@@ -50,8 +50,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
             licensePlate = commands[2].toLowerCase();
 
             redisClient.get(licensePlate, function(err, reply) {
-                if (reply = null) {
-                    rtm.sendMessage("I'm sorry <@" + message.user + ". That license plate is not currently assigned.", message.channel);
+                if (!reply) {
+                    rtm.sendMessage("I'm sorry <@" + message.user + ">. That license plate is not currently assigned.", message.channel);
                 } else {
                     redisClient.del(licensePlate);
                     rtm.sendMessage(licensePlate.toUpperCase() + " has been unassigned.", message.channel);
